@@ -297,7 +297,7 @@ export default function CustomerDashBoard() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                       
                       {/* Stock Badge */}
-                      <div className={`absolute right-3 top-3 rounded-lg px-2.5 py-1 text-[0.65rem] font-bold tracking-wide shadow-sm backdrop-blur-md border border-white/20 flex items-center gap-1.5 ${isOutOfStock ? 'bg-rose-100/90 text-rose-700' :
+                      <div className={`absolute right-0 bottom-0 rounded-lg px-2.5 py-1 text-[0.65rem] font-bold tracking-wide shadow-sm backdrop-blur-md border border-white/20 flex items-center gap-1.5 ${isOutOfStock ? 'bg-rose-100/90 text-rose-700' :
                           isLowStock ? 'bg-amber-100/90 text-amber-700' :
                             'bg-white/90 text-[#6E2D16]'
                         }`}>
