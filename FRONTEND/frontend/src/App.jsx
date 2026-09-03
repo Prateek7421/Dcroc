@@ -6,11 +6,6 @@ import OwnerDashBoard from './OwnerDashBoard';
 import CustomerDashBoard from './CustomerDashBoard'; 
 import OwnerGallery from './OwnerGallery';
 import CustomerGallery from './CustomerGallery';
-import IncomingRequests from './IncomingRequest';
-import TransactionHistory from './TransactionOwner';
-import CustomerTransactionHistory from './TransActionCustomer';
-import CustomerMessages from './CustomerMessage';
-import OwnerMessages from './OwnerMessage';
 
 const API_BASE_URL = 'https://dcrocbackend.onrender.com/api';
 
