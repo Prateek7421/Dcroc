@@ -5,8 +5,7 @@ import {
   ArrowUpRight, Clock, Phone, Plus, Edit2, Trash2, Package, X, Image as ImageIcon, Search, Upload, Loader2, ChefHat, Sparkles, MapPin, LogOut, CircleUserRound, ChevronDown
 } from 'lucide-react';
 
-<<<<<<< HEAD
-const API_BASE_URL = 'http://localhost:5000/api';
+const API_BASE_URL = 'https://dcrocbackend.onrender.com/api';
 const MAPS_LINK = "https://share.google/qS15TOcA1UNMf5vZy";
 const WHATSAPP_LINK = "https://wa.me/qr/FE6NIW2RPZFEO1";
 const DISPLAY_PHONE = "+55 11 91261-1100";
@@ -72,10 +71,6 @@ const CustomDropdown = ({ value, options, onChange }) => {
   );
 };
 
-=======
-const API_BASE_URL = 'https://stockpulse-lxml.onrender.com/api/products';
->>>>>>> 9b6dde6d35179f45dde0de30ecf888446b007d3a
-
 export default function OwnerDashBoard() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -120,14 +115,6 @@ export default function OwnerDashBoard() {
         if (inventoryResponse.data.length === 0) {
           setIsModalOpen(true);
         }
-<<<<<<< HEAD
-=======
-
-        const ordersResponse = await axios.get(`https://stockpulse-lxml.onrender.com/api/orders/${businessCode}`);
-        const pendingOrders = ordersResponse.data.filter(order => order.status === 'Pending');
-        setPendingCount(pendingOrders.length);
-
->>>>>>> 9b6dde6d35179f45dde0de30ecf888446b007d3a
       } catch (err) {
         setError(err.response?.data?.error || err.message || 'Failed to load dashboard');
       } finally {
@@ -135,27 +122,8 @@ export default function OwnerDashBoard() {
       }
     };
 
-<<<<<<< HEAD
     fetchInventory();
   }, []);
-=======
-    fetchInventoryAndBaselineOrders();
-  }, [businessCode]);
-
-  // --- WEBSOCKET ---
-  useEffect(() => {
-    const socket = io('https://stockpulse-lxml.onrender.com');
-    socket.emit('join_business_room', businessCode);
-
-    socket.on('new_order_incoming', (data) => {
-      setPendingCount(prev => prev + 1);
-      // Better UX: Use a toast instead of alert in production
-      console.log('New order:', data.message);
-    });
-
-    return () => socket.disconnect();
-  }, [businessCode]);
->>>>>>> 9b6dde6d35179f45dde0de30ecf888446b007d3a
 
   // --- FILTER & SORT ---
   useEffect(() => {
