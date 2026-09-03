@@ -312,7 +312,7 @@ export default function CustomerDashBoard() {
                       </h3>
                       <div className="mt-4 flex items-end justify-between border-t border-[#6E2D16]/10 pt-4">
                         <div>
-                          <p className="mb-1 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[#6E2D16]/60">A partir de</p>
+                          <p className="mb-1 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[#6E2D16]/60">Preco E</p>
                           <p className="text-2xl font-extrabold tracking-tight text-[#f05632]">{formatPrice(product.price)}</p>
                         </div>
                         
