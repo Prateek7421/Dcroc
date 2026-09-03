@@ -4,19 +4,16 @@ import axios from 'axios';
 
 import OwnerDashBoard from './OwnerDashBoard'; 
 import CustomerDashBoard from './CustomerDashBoard'; 
-<<<<<<< HEAD
 import OwnerGallery from './OwnerGallery';
 import CustomerGallery from './CustomerGallery';
 const API_BASE_URL = 'http://localhost:5000/api';
-=======
 import IncomingRequests from './IncomingRequest';
 import TransactionHistory from './TransactionOwner';
 import CustomerTransactionHistory from './TransActionCustomer';
 import CustomerMessages from './CustomerMessage';
 import OwnerMessages from './OwnerMessage';
 
-const API_BASE_URL = 'https://stockpulse-lxml.onrender.com/api';
->>>>>>> 9b6dde6d35179f45dde0de30ecf888446b007d3a
+const API_BASE_URL = 'https://dcrocbackend.onrender.com/api';
 
 // --- CABEÇALHO ---
 const Header = () => (
