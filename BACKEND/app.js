@@ -5,6 +5,7 @@ const cors = require('cors');
 const bcrypt = require('bcrypt'); 
 const jwt = require('jsonwebtoken'); 
 const http = require('http');
+const { Server } = require('socket.io'); // Added missing Socket.io import
 const cloudinary = require('cloudinary').v2;
 
 const app = express();
@@ -239,56 +240,6 @@ app.post('/api/gallery/owner', async (expressReq, expressRes) => {
     expressRes.status(400).json({ error: err.message }); 
   }
 });
-app.delete('/api/gallery/owner/:id', async (expressReq, expressRes) => {
-  try {
-    await Gallery.findByIdAndDelete(expressReq.params.id);
-    expressRes.json({ message: "Gallery media removed successfully" });
-  } catch (err) { 
-    expressRes.status(500).json({ error: err.message }); 
-  }
-});
-/* =========================================================
-   3. GALLERY & OCCASION MEDIA ENDPOINTS
-   ========================================================= */
-
-app.get('/api/gallery/customer', async (expressReq, expressRes) => {
-  try {
-    const galleryItems = await Gallery.find({}).sort({ createdAt: -1 });
-    expressRes.json(galleryItems);
-  } catch (err) { 
-    expressRes.status(500).json({ error: err.message }); 
-  }
-});
-
-// POST: Upload photo or video reel to Cloudinary and save to Gallery
-app.post('/api/gallery/owner', async (expressReq, expressRes) => {
-  try {
-    const { title, description, mediaType, mediaBase64 } = expressReq.body;
-    let mediaUrl = "";
-
-    if (mediaBase64) {
-      // Upload to Cloudinary. For videos, resource_type must be set to 'auto' or 'video'
-      const uploadResponse = await cloudinary.uploader.upload(mediaBase64, {
-        folder: "dcrocrotisseria_gallery",
-        resource_type: mediaType === 'video' ? 'video' : 'image'
-      });
-      mediaUrl = uploadResponse.secure_url;
-    }
-
-    const newMedia = new Gallery({ 
-      title: title || "Novidade D'Croc", 
-      description, 
-      mediaType, 
-      mediaUrl 
-    }); 
-
-    const savedMedia = await newMedia.save();
-    expressRes.status(201).json(savedMedia);
-  } catch (err) { 
-    console.error(err);
-    expressRes.status(400).json({ error: err.message }); 
-  }
-});
 
 app.delete('/api/gallery/owner/:id', async (expressReq, expressRes) => {
   try {
@@ -298,13 +249,7 @@ app.delete('/api/gallery/owner/:id', async (expressReq, expressRes) => {
     expressRes.status(500).json({ error: err.message }); 
   }
 });
-
-
 
 // --- START SERVER ---
 const PORT = process.env.PORT || 5000;
-<<<<<<< HEAD
 server.listen(PORT, () => console.log(`✓ dcrocrotisseria backend is running on port ${PORT}`));
-=======
-server.listen(PORT, () => console.log(`✓ Real-time server streaming on port ${PORT}`));
->>>>>>> 9b6dde6d35179f45dde0de30ecf888446b007d3a
