@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Playball&family=Playfair+Display&family=Saira:wght@300;400;500;600;700&display=swap');
+
+@theme {
+  --font-playfair: "Playfair Display", serif;
+  --font-playball: "Playball", cursive;
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-sans: "Saira", sans-serif;
+}
+
+/* Set Saira globally on the body so everything inherits it */
+body {
+  font-family: var(--font-sans);
+}
