@@ -6,7 +6,6 @@ import OwnerDashBoard from './OwnerDashBoard';
 import CustomerDashBoard from './CustomerDashBoard'; 
 import OwnerGallery from './OwnerGallery';
 import CustomerGallery from './CustomerGallery';
-const API_BASE_URL = 'http://localhost:5000/api';
 import IncomingRequests from './IncomingRequest';
 import TransactionHistory from './TransactionOwner';
 import CustomerTransactionHistory from './TransActionCustomer';
