@@ -13,16 +13,14 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors()); 
 
 const server = http.createServer(app);
-<<<<<<< HEAD
 
-=======
 const io = new Server(server, {
   cors: {
     origin: "https://stockpulse-awx2.onrender.com", 
     methods: ["GET", "POST"]
   }
 });
->>>>>>> 9b6dde6d35179f45dde0de30ecf888446b007d3a
+
 // --- MONGOOSE DATABASE CONNECTION ---
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✓ Successfully connected to MongoDB Atlas!'))
