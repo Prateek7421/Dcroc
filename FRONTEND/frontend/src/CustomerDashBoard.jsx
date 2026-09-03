@@ -18,7 +18,7 @@ import {
   X // <--- Ícone X adicionado aqui
 } from 'lucide-react';
 
-const API_BASE_URL = 'https://stockpulse-lxml.onrender.com/api';
+const API_BASE_URL = 'https://dcrocbackend.onrender.com/api';
 
 const formatPrice = (price) => `R$ ${Number(price).toFixed(2).replace('.', ',')}`;
 
