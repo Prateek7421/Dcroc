@@ -248,7 +248,7 @@ export default function CustomerDashBoard() {
             </div>
 
             {/* CUSTOM DROPDOWNS */}
-            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <div className="flex flex-col relative z-40 sm:flex-row gap-3 w-full sm:w-auto">
               <CustomDropdown value={sortBy} options={sortOptions} onChange={setSortBy} />
               <CustomDropdown value={filterStock} options={stockOptions} onChange={setFilterStock} />
             </div>
