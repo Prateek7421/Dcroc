@@ -196,7 +196,7 @@ export default function CustomerDashBoard() {
               className="group inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl border border-[#FAAA6B]/50 bg-[#FAAA6B]/10 px-4 text-sm font-semibold text-[#6E2D16] transition-all hover:-translate-y-0.5 hover:border-[#f05632] hover:bg-[#FAAA6B]/20 sm:flex-none shadow-sm"
             >
               <ImageIcon className="h-4 w-4 text-[#f05632] transition-transform group-hover:scale-110" />
-              Ofertas &amp; fotos
+              Ofertas &amp; Novidades
             </Link>
             
             <div className="flex min-h-11 w-full items-center justify-center gap-2 rounded-xl border border-[#FAAA6B]/50 bg-[#FAAA6B]/20 px-4 text-sm text-[#6E2D16]/90 sm:w-auto shadow-sm">
