@@ -15,7 +15,7 @@ import {
   ChevronDown,
   MapPin,
   Clock,
-  X // <--- Ícone X adicionado aqui
+  X 
 } from 'lucide-react';
 
 const API_BASE_URL = 'https://dcrocbackend.onrender.com/api';
@@ -56,8 +56,9 @@ const CustomDropdown = ({ value, options, onChange }) => {
         <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-200 text-[#f05632] ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
+      {/* FIX 1: Changed z-50 to z-[100] here */}
       {isOpen && (
-        <div className="absolute z-50 mt-2 w-full bg-[#FEE5BD] border border-[#FAAA6B]/80 rounded-xl shadow-xl overflow-hidden py-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+        <div className="absolute z-[100] mt-2 w-full bg-[#FEE5BD] border border-[#FAAA6B]/80 rounded-xl shadow-xl overflow-hidden py-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
           {options.map((option) => (
             <button
               key={option.value}
@@ -223,7 +224,8 @@ export default function CustomerDashBoard() {
         )}
 
         {/* TOOLBAR: SEARCH & FILTERS */}
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between bg-white/40 border border-[#FAAA6B]/40 p-4 sm:p-5 rounded-[1.5rem] backdrop-blur-xl shadow-[0_8px_30px_rgba(110,45,22,0.04)]">
+        {/* FIX 2: Added 'relative z-40' to the main toolbar wrapper */}
+        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between bg-white/40 border border-[#FAAA6B]/40 p-4 sm:p-5 rounded-[1.5rem] backdrop-blur-xl shadow-[0_8px_30px_rgba(110,45,22,0.04)] relative z-40">
           <div className="flex items-center gap-3">
             <div className="bg-[#FEE5BD] p-2.5 rounded-xl border border-[#FAAA6B]/50 shadow-inner">
               <Package className="w-6 h-6 text-[#f05632]" strokeWidth={1.75} />
@@ -234,7 +236,8 @@ export default function CustomerDashBoard() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 z-20">
+          {/* FIX 3: Changed 'z-20' to 'relative z-50' here */}
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 relative z-50">
             {/* SEARCH BAR */}
             <div className="relative w-full sm:w-64">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#f05632] w-4 h-4" />
@@ -248,7 +251,8 @@ export default function CustomerDashBoard() {
             </div>
 
             {/* CUSTOM DROPDOWNS */}
-            <div className="flex flex-col relative z-40 sm:flex-row gap-3 w-full sm:w-auto">
+            {/* FIX 4: Changed 'z-40' to 'relative z-50' here */}
+            <div className="flex flex-col relative z-50 sm:flex-row gap-3 w-full sm:w-auto">
               <CustomDropdown value={sortBy} options={sortOptions} onChange={setSortBy} />
               <CustomDropdown value={filterStock} options={stockOptions} onChange={setFilterStock} />
             </div>
