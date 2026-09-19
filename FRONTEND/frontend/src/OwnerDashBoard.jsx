@@ -12,14 +12,13 @@ const DISPLAY_PHONE = "+55 11 91261-1100";
 const INSTAGRAM_LINK = "https://www.instagram.com/dcroc_?utm_source=qr&igsh=MXFnNWJhOGZscjlwZg==";
 
 // ==========================================
-// CUSTOM DROPDOWN COMPONENT (With Click-Outside listener)
+// CUSTOM DROPDOWN COMPONENT
 // ==========================================
 const CustomDropdown = ({ value, options, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const selectedOption = options.find(opt => opt.value === value);
 
-  // Close dropdown when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -37,7 +36,6 @@ const CustomDropdown = ({ value, options, onChange }) => {
 
   return (
     <div className="relative w-full sm:w-[170px]" ref={dropdownRef}>
-      {/* Dropdown Button */}
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
@@ -47,9 +45,8 @@ const CustomDropdown = ({ value, options, onChange }) => {
         <ChevronDown className={`w-4 h-4 shrink-0 transition-transform duration-200 text-[#f05632] ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
-      {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute z-50 mt-2 w-full bg-[#FEE5BD] border border-[#FAAA6B]/80 rounded-xl shadow-xl overflow-hidden py-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
+        <div className="absolute z-[100] mt-2 w-full bg-[#FEE5BD] border border-[#FAAA6B]/80 rounded-xl shadow-xl overflow-hidden py-1.5 animate-in fade-in slide-in-from-top-1 duration-200">
           {options.map((option) => (
             <button
               key={option.value}
@@ -76,7 +73,6 @@ export default function OwnerDashBoard() {
   const navigate = useNavigate();
   const name = location.state?.username || 'Proprietário';
 
-  // --- STATE ---
   const [inventory, setInventory] = useState([]);
   const [filteredInventory, setFilteredInventory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -87,7 +83,6 @@ export default function OwnerDashBoard() {
   const [isEditing, setIsEditing] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(null);
   
-  // ZOOMED IMAGE STATE
   const [zoomedImage, setZoomedImage] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -102,7 +97,6 @@ export default function OwnerDashBoard() {
   const [sortBy, setSortBy] = useState('name');
   const [filterStock, setFilterStock] = useState('all');
 
-  // --- FETCH DATA ---
   useEffect(() => {
     const fetchInventory = async () => {
       try {
@@ -125,7 +119,6 @@ export default function OwnerDashBoard() {
     fetchInventory();
   }, []);
 
-  // --- FILTER & SORT ---
   useEffect(() => {
     let result = [...inventory];
 
@@ -149,7 +142,6 @@ export default function OwnerDashBoard() {
     setFilteredInventory(result);
   }, [inventory, searchTerm, sortBy, filterStock]);
 
-  // --- HANDLERS ---
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -193,7 +185,11 @@ export default function OwnerDashBoard() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.price || !formData.stock) return;
+    
+    // FIX: Using String(val).trim() allows the number 0 to pass validation
+    if (!formData.name || String(formData.price).trim() === '' || String(formData.stock).trim() === '') {
+      return;
+    }
 
     setIsSubmitting(true);
 
@@ -258,7 +254,6 @@ export default function OwnerDashBoard() {
     }
   };
 
-  // Dropdown Options
   const sortOptions = [
     { value: 'name', label: 'Ordenar: Nome' },
     { value: 'price', label: 'Ordenar: Preço' },
@@ -274,7 +269,7 @@ export default function OwnerDashBoard() {
   return (
     <div className="min-h-screen w-full bg-[#FEE5BD] font-sans text-[#6E2D16] selection:bg-[#FAAA6B] selection:text-[#6E2D16] relative">
       
-      {/* BACKGROUND WITH YOUR CUSTOM TINT */}
+      {/* BACKGROUND */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
         <div className="absolute left-1/2 top-1/3 h-[12rem] w-[75rem] -translate-x-1/2 rounded-full bg-[#da7e7e] blur-[110px]" />
         <div className="absolute -left-32 -top-40 h-[30rem] w-[30rem] rounded-full bg-[#FAAA6B]/40 blur-[120px]" />
@@ -282,11 +277,10 @@ export default function OwnerDashBoard() {
         <div className="absolute inset-0 opacity-[0.05] [background-image:linear-gradient(#6E2D16_1px,transparent_1px),linear-gradient(90deg,#6E2D16_1px,transparent_1px)] [background-size:48px_48px]" />
       </div>
 
-      {/* FULL-WIDTH STICKY HEADER - Smaller & Cleaner */}
+      {/* HEADER */}
       <header className="sticky top-0 z-50 w-full border-b border-[#FAAA6B]/40 bg-[#FEE5BD]/85 px-4 py-4 backdrop-blur-xl sm:px-8 lg:px-12 shadow-[0_20px_50px_rgba(110,45,22,0.08)]">
         <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
 
-          {/* Clean Logo on Left & Title */}
           <div className="flex items-center gap-4">
             <img
               src="https://res.cloudinary.com/jvuks1bl/image/upload/v1788457009/WhatsApp_Image_2026-09-03_at_21.55.42_dmsiav.jpg"
@@ -303,7 +297,6 @@ export default function OwnerDashBoard() {
             </div>
           </div>
 
-          {/* Navigation Buttons on Right */}
           <div className="flex flex-wrap items-center gap-3">
             <Link
               to="/owner/gallery"
@@ -330,11 +323,11 @@ export default function OwnerDashBoard() {
         </div>
       </header>
 
-      {/* MAIN CONTENT CONTAINER */}
+      {/* MAIN CONTENT */}
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
         
-        {/* TOOLBAR: SEARCH & FILTERS */}
-        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between bg-white/40 border border-[#FAAA6B]/40 p-4 sm:p-5 rounded-[1.5rem] backdrop-blur-xl shadow-[0_8px_30px_rgba(110,45,22,0.04)]">
+        {/* FIX: Added relative and z-40 so the Dropdown can sit over the Product list below */}
+        <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between bg-white/40 border border-[#FAAA6B]/40 p-4 sm:p-5 rounded-[1.5rem] backdrop-blur-xl shadow-[0_8px_30px_rgba(110,45,22,0.04)] relative z-40">
           <div className="flex items-center gap-3">
             <div className="bg-[#FEE5BD] p-2.5 rounded-xl border border-[#FAAA6B]/50 shadow-inner">
               <Package className="w-6 h-6 text-[#f05632]" strokeWidth={1.75} />
@@ -347,9 +340,9 @@ export default function OwnerDashBoard() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 z-20">
+          {/* FIX: Ensure internal wrapper respects z-index for children rendering */}
+          <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 relative z-50">
             
-            {/* SEARCH BAR */}
             <div className="relative w-full sm:w-64">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#f05632] w-4 h-4" />
               <input
@@ -361,8 +354,7 @@ export default function OwnerDashBoard() {
               />
             </div>
 
-            {/* FULLY CUSTOM DROPDOWNS */}
-            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto relative z-50">
               <CustomDropdown 
                 value={sortBy} 
                 options={sortOptions} 
@@ -375,7 +367,6 @@ export default function OwnerDashBoard() {
               />
             </div>
 
-            {/* ADD BUTTON */}
             <button
               onClick={handleAddNewClick}
               className="flex items-center justify-center gap-2 bg-[#f05632] hover:bg-[#d94a28] active:scale-[0.98] text-white font-semibold px-6 py-2.5 rounded-xl transition-all shadow-lg shadow-[#f05632]/30 text-sm w-full sm:w-auto mt-2 sm:mt-0"
@@ -392,7 +383,6 @@ export default function OwnerDashBoard() {
           </div>
         )}
 
-        {/* PRODUCTS GRID */}
         <main className="z-10 relative">
           {isLoading && inventory.length === 0 ? (
             <div className="flex min-h-[46vh] flex-col items-center justify-center rounded-[2rem] border border-[#FAAA6B]/40 bg-[#FAAA6B]/10 shadow-lg backdrop-blur-md">
@@ -424,7 +414,6 @@ export default function OwnerDashBoard() {
                     key={product._id}
                     className="group overflow-hidden rounded-[1.7rem] border border-[#FAAA6B]/60 bg-white/50 shadow-[0_8px_30px_rgba(110,45,22,0.06)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:border-[#f05632] hover:shadow-[0_22px_50px_rgba(240,86,50,0.2)] flex flex-col"
                   >
-                    {/* Alterado para object-cover e removido o m-2 para ocupar a área toda */}
                     <div className="relative h-48 overflow-hidden bg-[#FEE5BD]/80 sm:h-52 shadow-inner">
                       {product.imageUrl ? (
                         <img
@@ -440,7 +429,6 @@ export default function OwnerDashBoard() {
                         </div>
                       )}
                       
-                      {/* Stock Badge */}
                       <div className={`absolute right-0 bottom-0 rounded-lg px-2.5 py-1 text-[0.65rem] font-bold tracking-wide shadow-sm backdrop-blur-md border border-white/40 flex items-center gap-1.5 ${
                         isOutOfStock ? 'bg-rose-100/90 text-rose-700' : 
                         isLowStock ? 'bg-amber-100/90 text-amber-700' : 
@@ -463,7 +451,6 @@ export default function OwnerDashBoard() {
                         </span>
                       </div>
 
-                      {/* Action Buttons */}
                       <div className="mt-5 flex gap-2 border-t border-[#6E2D16]/10 pt-4">
                         <button
                           onClick={() => handleEditClick(product)}
@@ -492,7 +479,6 @@ export default function OwnerDashBoard() {
         <div className="fixed inset-0 bg-[#6E2D16]/60 backdrop-blur-sm z-[70] flex items-center justify-center p-4 overflow-y-auto">
           <div className="bg-[#FEE5BD] border-2 border-[#FAAA6B] rounded-[2rem] w-full max-w-lg shadow-2xl my-auto overflow-hidden relative">
 
-            {/* Modal Header */}
             <div className="flex items-center justify-between px-6 py-5 border-b border-[#FAAA6B]/40 bg-white/60 backdrop-blur-md">
               <h2 className="text-2xl font-serif font-bold text-[#6E2D16] flex items-center gap-2">
                 {isEditing ? <Edit2 className="w-5 h-5 text-[#f05632]" /> : <Plus className="w-5 h-5 text-[#f05632]" />}
@@ -623,7 +609,6 @@ export default function OwnerDashBoard() {
       )}
 
       {/* ================= FULL-SCREEN IMAGE ZOOM MODAL ================= */}
-      {/* Aqui mantemos o object-contain para a imagem aberta não ser cortada */}
       {zoomedImage && (
         <div 
           className="fixed inset-0 bg-black/80 backdrop-blur-md z-[9999] flex items-center justify-center p-4 sm:p-8 cursor-zoom-out animate-in fade-in duration-200"
@@ -649,10 +634,8 @@ export default function OwnerDashBoard() {
       <footer className="relative z-10 w-full border-t border-[#FAAA6B]/50 bg-white/40 backdrop-blur-xl mt-8">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 py-10 lg:py-12">
           
-          {/* Grid Layout with Vertical Dividers on Desktop */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 lg:divide-x divide-[#FAAA6B]/90">
             
-            {/* 1. Branding Section */}
             <div className="flex flex-col gap-4 lg:pr-8">
               <div className="flex items-center gap-3">
                 <img
@@ -667,7 +650,6 @@ export default function OwnerDashBoard() {
               </p>
             </div>
 
-            {/* 2. Address */}
             <div className="flex flex-col gap-3 lg:px-8">
               <h4 className="font-bold text-[#6E2D16] flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-[#f05632]" />
@@ -687,7 +669,6 @@ export default function OwnerDashBoard() {
               </a>
             </div>
 
-            {/* 3. Working Hours */}
             <div className="flex flex-col gap-3 lg:px-8">
               <h4 className="font-bold text-[#6E2D16] flex items-center gap-2">
                 <Clock className="w-4 h-4 text-[#f05632]" />
@@ -705,14 +686,12 @@ export default function OwnerDashBoard() {
               </ul>
             </div>
 
-            {/* 4. Contact & Socials */}
             <div className="flex flex-col gap-4 lg:pl-8">
               <h4 className="font-bold text-[#6E2D16] flex items-center gap-2">
                 <Phone className="w-4 h-4 text-[#f05632]" />
                 Contato : {DISPLAY_PHONE}
               </h4>
               
-              {/* WhatsApp Button */}
               <a
                 href={WHATSAPP_LINK}
                 target="_blank"
@@ -725,7 +704,6 @@ export default function OwnerDashBoard() {
                 Fazer Pedido
               </a>
 
-              {/* Follow Us (Instagram) */}
               <div className="flex items-center gap-3 mt-2">
                 <a
                   href={INSTAGRAM_LINK}
@@ -751,7 +729,6 @@ export default function OwnerDashBoard() {
             </div>
           </div>
 
-          {/* Copyright Bar */}
           <div className="mt-12 pt-6 border-t border-[#FAAA6B]/90 text-center text-xs font-semibold text-[#6E2D16]/90">
             &copy; {new Date().getFullYear()} D'Croc Rotisseria. Todos os direitos reservados.
           </div>
