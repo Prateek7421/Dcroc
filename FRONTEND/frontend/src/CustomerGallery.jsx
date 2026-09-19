@@ -51,7 +51,7 @@ export default function CustomerGallery() {
           {/* Logo & Title */}
           <div className="flex items-center gap-4">
             <img
-              src="https://res.cloudinary.com/jvuks1bl/image/upload/v1786024305/dcroc_rxnakn.jpg"
+              src="https://res.cloudinary.com/jvuks1bl/image/upload/v1788457009/WhatsApp_Image_2026-09-03_at_21.55.42_dmsiav.jpg"
               alt="D'Croc Rotisseria Logo"
               className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-cover shadow-[0_8px_20px_rgba(110,45,22,0.15)] border-2 border-[#FAAA6B] shrink-0"
             />
